@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Energética de Salta, Jujuy y Tucumán</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/i18next@21.6.5/dist/umd/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animate.css"></script>
+</head>
+<body>
+    <header class="animated fadeIn">
+        <img src="./images/logo.jpeg" alt="Logo Colegio Mark Twain">
+        <h1 data-i18n="title">Propuesta Energética</h1>
+        <p data-i18n="subtitle">Unificación de recursos para el desarrollo sostenible y generación de ingresos.</p>
+    </header>
+
+    <div id="language-switch">
+        <button data-lang="es" aria-label="Cambiar a español">Español</button>
+        <button data-lang="en" aria-label="Switch to English">English</button>
+    </div>
+
+    <div class="container">
+        <section class="animated fadeIn">
+            <h2 data-i18n="intro_title">Introducción</h2>
+            <p data-i18n="intro_text">
+                Las provincias de Salta, Jujuy y Tucumán proponen una colaboración estratégica
+                para aprovechar sus recursos energéticos y minerales. El objetivo es 
+                construir una planta de almacenamiento de energía para exportar excedentes a países vecinos.
+            </p>
+        </section>
+
+        <section class="animated fadeIn">
+            <h2 data-i18n="images_section">Imágenes del Proyecto</h2>
+            <div class="image-gallery">
+                <img src="./images/p.jpeg" alt="Energía Solar" class="animated fadeIn">
+                <img src="./images/f.jpeg" alt="Energía Eólica" class="animated fadeIn">
+                <img src="./images/k.jpeg" alt="Energía Hidroeléctrica" class="animated fadeIn">
+                <img src="./images/t.jpg" alt="Energía Hidroeléctrica" class="animated fadeIn">
+            </div>
+        </section>
+
+        <section class="animated fadeIn">
+            <h2 data-i18n="s_section">Jujuy</h2>
+            <ul>
+                <li data-i18n="tom_lithium">Extracción anual de 17,500 toneladas de litio.</li>
+                <li data-i18n="e_income">Ganancia anual esperada: $198,625,000.</li>
+                <li data-i18n="f_projects">Proyectos en curso: exportación a Japón y China, mejora en cableado para distribución.</li>
+            </ul>
+        </section>
+
+        <section class="animated fadeIn">
+            <h2 data-i18n="salta_section">Salta</h2>
+            <ul>
+                <li data-i18n="salta_solar">Producción de energía solar, eólica, e hidroeléctrica.</li>
+                <li data-i18n="salta_recommendations">Proyectos recomendados: Parque Solar Los Colorado (100 MW), Hidroeléctrica Cabra Corral Planta (120 MW).</li>
+                <li data-i18n="salta_lithium">Capacidad para obtener $88 millones de ganancias por exportación de litio.</li>
+            </ul>
+        </section>
+
+        <section class="animated fadeIn">
+            <h2 data-i18n="tucuman_section">Tucumán</h2>
+            <ul>
+                <li data-i18n="tucuman_generation">Generación de energía hidroeléctrica, solar y térmica.</li>
+                <li data-i18n="tucuman_financing">Gestión de financiación mediante impuestos a empresas líderes del sector.</li>
+                <li data-i18n="tucuman_capacity">Capacidad instalada: 7596 GWh, con excedente de 4766 GWh.</li>
+            </ul>
+        </section>
+
+        <section class="animated fadeIn">
+            <h2 data-i18n="conclusion_section">Conclusión</h2>
+            <p data-i18n="conclusion_text">
+                La colaboración entre estas tres provincias permitirá un desarrollo económico sostenible 
+                y posicionará a la región como líder en exportación de energías renovables.
+            </p>
+        </section>
+    </div>    
+
+    <section class="animated fadeIn">
+        <h2 data-i18n="comments_section">Comentarios</h2>
+        <form id="comment-form" class="animated fadeInUp">
+            <textarea id="comment-text" placeholder="Deja tu comentario..." required></textarea>
+            <button type="submit">Enviar Comentario</button>
+        </form>
+        <div id="comments-list" class="animated fadeInUp">
+            <!-- Los comentarios aparecerán aquí -->
+        </div>
+    </section>
+
+    <footer class="animated fadeInUp">
+        <p data-i18n="footer_text">Propuesta elaborada por las delegaciones de Salta, Jujuy y Tucumán. &copy; 2024</p>
+    </footer>
+
+    <script>
+        document.getElementById('comment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var commentText = document.getElementById('comment-text').value;
+
+            if (commentText.trim() !== '') {
+                var commentList = document.getElementById('comments-list');
+                var newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `<p>${commentText}</p>`;
+                commentList.appendChild(newComment);
+                document.getElementById('comment-text').value = '';
+            }
+        });
+
+        function changeLanguage(language) {
+            i18next.changeLanguage(language, function(err, t) {
+                document.querySelectorAll('[data-i18n]').forEach(function(elem) {
+                    elem.innerText = t(elem.getAttribute('data-i18n'));
+                });
+                document.querySelectorAll('#language-switch button').forEach(function(button) {
+                    button.classList.remove('selected');
+                    if (button.getAttribute('data-lang') === language) {
+                        button.classList.add('selected');
+                    }
+                });
+            });
+        }
+
+        i18next.init({
+            lng: 'es',
+            resources: {
+                es: {
+                    translation: {
+                        title: "Propuesta Energética",
+                        subtitle: "Unificación de recursos para el desarrollo sostenible y generación de ingresos.",
+                        intro_title: "Introducción",
+                        intro_text: "Las provincias de Salta, Jujuy y Tucumán proponen una colaboración estratégica para aprovechar sus recursos energéticos y minerales. El objetivo es construir una planta de almacenamiento de energía para exportar excedentes a países vecinos.",
+                        images_section: "Imágenes del Proyecto",
+                        comments_section: "Comentarios",
+                        s_section: "Jujuy",
+                        tom_lithium: "Extracción anual de 17,500 toneladas de litio.",
+                        e_income: "Ganancia anual esperada: $198,625,000.",
+                        f_projects: "Proyectos en curso: exportación a Japón y China, mejora en cableado para distribución.",
+                        salta_section: "Salta",
+                        salta_solar: "Producción de energía solar, eólica, e hidroeléctrica.",
+                        salta_recommendations: "Proyectos recomendados: Parque Solar Los Colorado (100 MW), Hidroeléctrica Cabra Corral Planta (120 MW).",
+                        salta_lithium: "Capacidad para obtener $88 millones de ganancias por exportación de litio.",
+                        tucuman_section: "Tucumán",
+                        tucuman_generation: "Generación de energía hidroeléctrica, solar y térmica.",
+                        tucuman_financing: "Gestión de financiación mediante impuestos a empresas líderes del sector.",
+                        tucuman_capacity: "Capacidad instalada: 7596 GWh, con excedente de 4766 GWh.",
+                        conclusion_section: "Conclusión",
+                        conclusion_text: "La colaboración entre estas tres provincias permitirá un desarrollo económico sostenible y posicionará a la región como líder en exportación de energías renovables.",
+                        footer_text: "Propuesta elaborada por las delegaciones de Salta, Jujuy y Tucumán. &copy; 2024",
+                    }
+                },
+                en: {
+                    translation: {
+                        title: "Energy Proposal",
+                        subtitle: "Resource unification for sustainable development and revenue generation.",
+                        intro_title: "Introduction",
+                        intro_text: "The provinces of Salta, Jujuy, and Tucumán propose a strategic collaboration to harness their energy and mineral resources. The goal is to build an energy storage plant to export surpluses to neighboring countries.",
+                        images_section: "Project Images",
+                        comments_section: "Comments",
+                        s_section: "Jujuy",
+                        tom_lithium: "Annual extraction of 17,500 tons of lithium.",
+                        e_income: "Expected annual income: $198,625,000.",
+                        f_projects: "Ongoing projects: export to Japan and China, network improvements for distribution.",
+                        salta_section: "Salta",
+                        salta_solar: "Production of solar, wind, and hydroelectric energy.",
+                        salta_recommendations: "Recommended projects: Los Colorado Solar Park (100 MW), Cabra Corral Hydroelectric Plant (120 MW).",
+                        salta_lithium: "Ability to earn $88 million from lithium exports.",
+                        tucuman_section: "Tucumán",
+                        tucuman_generation: "Generation of hydroelectric, solar, and thermal energy.",
+                        tucuman_financing: "Management of financing through taxes on leading companies in the sector.",
+                        tucuman_capacity: "Installed capacity: 7596 GWh, with a surplus of 4766 GWh.",
+                        conclusion_section: "Conclusion",
+                        conclusion_text: "Collaboration between these three provinces will enable sustainable economic development and position the region as a leader in renewable energy exports.",
+                        footer_text: "Proposal made by the delegations of Salta, Jujuy, and Tucumán. &copy; 2024",
+                    }
+                }
+            }
+        });
+
+        document.querySelectorAll('#language-switch button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                changeLanguage(this.getAttribute('data-lang'));
+            });
+        });
+    </script>
+</body>
+</html>
+
+
